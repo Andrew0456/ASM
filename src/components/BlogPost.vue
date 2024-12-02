@@ -1,7 +1,13 @@
 <template>
   <div>
+
     <!-- <h2 class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 text-3xl font-bold mb-6 text-center text-gray-800">Chi Tiết Bài Viết</h2> -->
     <h2 class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 text-3xl font-bold  text-center text-cyan-400">Chi Tiết Bài Viết</h2>
+
+
+    
+    <h2 class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 text-3xl font-bold mb-6 text-center text-gray-800">Chi Tiết Bài Viết</h2>
+
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <div class="bg-white rounded-lg shadow-md p-6">
         <h2 class="text-3xl font-bold mb-3">{{ post.title }}</h2>
@@ -25,6 +31,43 @@
           </button>
           <span class="ml-3 text-gray-700">{{ post.likeCount || 0 }} Likes</span>
         </div>
+        <hr>
+        <!--smtp-->
+        <div class="w-100">
+          <form ref="form" @submit.prevent="sendEmail">
+          <label>Enter your email to receive newest blog</label>
+          <input type="email" name="user_email" class="px-3 border border-orange-600 rounded-lg" v-model="user_email">
+          <button type="submit" value="Send" class="w-24 py-2 bg-red-500 rounded-lg">Submit</button>
+          </form>
+        </div>
+        
+        <!-- <h2>Gửi Email</h2>  
+        <form @submit.prevent="sendEmail">  
+          <input   
+            type="text"   
+            v-model="name"   
+            placeholder="Tên người nhận"   
+            required   
+          />  
+          <input   
+            type="email"   
+            v-model="email"   
+            placeholder="Email người nhận"   
+            required   
+          />  
+          <textarea   
+            v-model="message"   
+            placeholder="Nội dung"   
+            required   
+          ></textarea>  
+          <button type="submit">Gửi Email</button>  
+        </form>   -->
+        
+        <!-- Back Button -->
+        <router-link 
+          to="/home" 
+          class="inline-block px-6 py-3 text-white transition duration-300 bg-gray-500 rounded-lg hover:bg-gray-600"/>
+
 
         <!-- Back Button -->
         <router-link 
@@ -60,17 +103,27 @@
       </div>
     </div>
   </div>
+  
 </template>
 
 <script>
+import emailjs from '@emailjs/browser';  
+
 export default {
   name: 'BlogPost',
   data() {
     return {
       username: '',
       post: null,
+
       newComment: '',
       comments: []
+
+      name: '',  
+      email: '',  
+      message: '',
+
+
     };
   },
   created() {
@@ -97,6 +150,28 @@ export default {
     }
   },
   methods: {
+    sendEmail() {
+      emailjs
+        .sendForm('mailsendvue','template_x21zog4', this.$refs.form, {publicKey :'j3_OvNPh1PtlyZbam'})
+        .then(
+          () => {
+            alert('SUCCESS!');
+          },
+          (error) => {
+            alert('FAILED...', error.text);
+          },
+        )},
+    // sendEmail() {  
+    //   const templateParams = {  
+    //     name: this.name,  
+    //     email: this.email,  
+    //     message: this.message,  
+    //   };  
+
+    //   emailjs.send('mailsendvue', 'template_x21zog4', templateParams)  
+         
+    // },  
+
     toggleLike() {
       if (!this.post || !this.username) return;
 
