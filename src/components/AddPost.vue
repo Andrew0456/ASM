@@ -91,6 +91,117 @@ export default {
         { label: 'In đậm', command: 'bold' },
         { label: 'In nghiêng', command: 'italic' },
         { label: 'Gạch chân', command: 'underline' },
+      ],
+      categories: [
+        { value: 'Cong nghe', label: 'Danh mục cn' },
+        { value: 'Giai tri', label: 'Danh mục gt' },
+        { value: 'The gioi', label: 'Danh mục tg' },
+      ],
+    };
+  },
+  // created() {
+  //   const username = localStorage.getItem('username');
+  //   if (username) {
+  //     this.username = username;
+  //   }
+  // },
+  created() {
+    // Lấy thông tin người dùng từ localStorage
+    const storedUser = localStorage.getItem("username");
+    if (storedUser) {
+      this.currentUser = storedUser; // Không cần JSON.parse do username là chuỗi
+    } else {
+      alert("Bạn chưa đăng nhập! Chuyển hướng về trang chủ.");
+      this.$router.push({ name: "Home" });
+    }
+  },
+
+
+  methods: {
+    formatDate(date) {
+      const d = new Date(date);
+      const day = String(d.getDate()).padStart(2, "0");
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const year = String(d.getFullYear()).slice(-2);
+      const hours = String(d.getHours()).padStart(2, "0");
+      const minu = String(d.getMinutes()).padStart(2, "0");
+
+      return `Ngày ${day} Tháng ${month} năm 20${year} | Vào lúc ${hours} giờ ${minu} phút`;
+    },
+    
+    formatText(command) {
+      this.$refs.contentEditable.focus();
+      document.execCommand(command, false, null);
+    },
+
+    handleImageUpload(event) {
+      this.imageFile = event.target.files[0];
+    },
+
+    validateAndShowModal() {
+      const title = this.postTitle.trim();
+      const content = this.$refs.contentEditable.innerText.trim();
+
+      if (!title) {
+        alert('Vui lòng nhập Tiêu Đề!');
+        return;
+      }
+      if (!content) {
+        alert('Vui lòng nhập Nội Dung!');
+        return;
+      }
+
+      this.showModal = true;
+    },
+
+    async addPost() {
+      const postData = {
+        title: this.postTitle,
+        content: this.$refs.contentEditable.innerHTML,
+        category: this.selectedCategory,
+        author: this.currentUser,
+        date: this.formatDate(new Date().toISOString()), 
+        comments: []
+      };
+
+      if (this.imageFile) {
+        try {
+          const base64Image = await this.getBase64(this.imageFile);
+          postData.image = base64Image;
+        } catch (error) {
+          console.error('Error converting image:', error);
+        }
+      }
+
+      localStorage.setItem(`post_${Date.now()}`, JSON.stringify(postData));
+      this.$router.push('/post');
+    },
+
+    getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    }
+  }
+}
+</script>
+<!-- <script>
+export default {
+  name: 'AddPost',
+  data() {
+    return {
+      username: '',
+      postTitle: '',
+      selectedCategory: 'Cong nghe',
+      imageFile: null,
+      showModal: false,
+      toolbar: [
+        { label: 'In đậm', command: 'bold' },
+        { label: 'In nghiêng', command: 'italic' },
+        { label: 'Gạch chân', command: 'underline' },
         // { label: 'Danh sách', command: 'insertUnorderedList' },
         // { label: 'Danh sách số', command: 'insertOrderedList' },
       ],
@@ -108,6 +219,17 @@ export default {
     }
   },
   methods: {
+    formatDate(date) {
+      const d = new Date(date);
+      const day = String(d.getDate()).padStart(2, "0");
+      const month = String(d.getMonth() + 1).padStart(2, "0"); // Tháng bắt đầu từ 0
+      const year = String(d.getFullYear()).slice(-2);
+      const hours = String(d.getHours()).padStart(2, "0");
+      const minu = String(d.getMinutes()).padStart(2, "0");
+
+      return `Ngày ${day} Tháng ${month} năm 20${year} | Vào lúc ${hours} giờ ${minu} phút`   ;
+    },
+    
     formatText(command) {
       // su dung tool
       this.$refs.contentEditable.focus();
@@ -139,6 +261,7 @@ export default {
         title: this.postTitle,
         content: this.$refs.contentEditable.innerHTML,
         category: this.selectedCategory,
+        date: this.formatDate(new Date().toISOString()), 
       }
 
       if (this.imageFile) {
@@ -167,7 +290,7 @@ export default {
     }
   }
 }
-</script>
+</script> -->
 
 
 <style scoped>
