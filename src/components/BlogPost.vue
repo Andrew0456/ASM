@@ -1,27 +1,7 @@
 <template>
   <div>
 
-    <h2 class="px-4 py-6 mx-auto mb-6 text-3xl font-bold text-center text-gray-800 max-w-7xl sm:px-6 lg:px-8">Chi Tiết Bài Viết</h2>
-
-    <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div class="p-6 bg-white rounded-lg shadow-md">
-        <h2 class="mb-3 text-3xl font-bold">{{ post.title }}</h2>
-        <p class="mb-4 text-xl text-blue-700">Người đăng: {{ username }}</p>
-        <p class="mb-4 italic text-gray-600">Danh mục: {{ post.category }}</p>
-
-        <!-- Image -->
-        <div v-if="post.image" class="mb-6">
-          <img :src="post.image" :alt="post.title" class="object-fill w-full rounded-lg shadow-lg max-h-196">
-        </div>
-
-        <!-- Content -->
-        <div class="mb-6 prose max-w-none" v-html="post.content"></div>
-
-        <!-- Like/Unlike Button and Like Count -->
-        <div class="flex items-center mb-4">
-          <button @click="toggleLike" 
-            class="px-3 py-2 text-white transition duration-300 ease-in-out rounded-lg">
-
+    
     <h2 class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 text-3xl font-bold mb-6 text-center text-gray-800">Chi Tiết Bài Viết</h2>
 
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -82,7 +62,7 @@
         <!-- Back Button -->
         <router-link 
           to="/home" 
-          class="inline-block px-6 py-3 text-white transition duration-300 bg-gray-500 rounded-lg hover:bg-gray-600"
+          class="inline-block px-6 py-3 text-white transition duration-300 bg-gray-500 rounded-lg hover:bg-gray-600"/>
 
 
         <!-- Back Button -->
@@ -95,6 +75,7 @@
       </div>
     </div>
   </div>
+  
 </template>
 
 <script>
