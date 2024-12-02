@@ -21,6 +21,9 @@
             <img v-if="post.image" :src="post.image" :alt="post.title"
               class="w-full h-56 object-fill transition-transform duration-300 ease-in-out transform hover:scale-105">
             <!-- object-cover   full man  hinh -->
+            <div class="absolute bottom-0 left-0 w-full p-3 text-sm text-white bg-black bg-opacity-40">
+      <p>{{ post.date }}</p>
+    </div>
 
           </router-link>
 

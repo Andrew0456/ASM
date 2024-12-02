@@ -26,9 +26,9 @@ import { RouterView } from 'vue-router';
             <li v-if="isLoggedIn" class="cus-top-menu-item">
               <router-link to="/Singlepost">Single Post</router-link>
             </li>
-            <li v-if="isLoggedIn" class="cus-top-menu-item">
+            <!-- <li v-if="isLoggedIn" class="cus-top-menu-item">
               <router-link to="/Author">Author</router-link>
-            </li>
+            </li> -->
             <li v-if="!isLoggedIn" class="cus-top-menu-item">
               <router-link to="/register">Register</router-link>
             </li>
@@ -56,22 +56,25 @@ import { RouterView } from 'vue-router';
               <div class="modal-content">
                 <!-- Header của modal -->
                 <div class="flex justify-between items-center">
-                  <h2 class="text-lg font-bold">Kết quả tìm kiếm</h2>
+                  <h2 class="text-2xl font-bold">Kết quả tìm kiếm</h2>
                   <button @click="closeModal"
                     class="text-red-500 hover:text-red-700 transition-colors text-xl font-bold" aria-label="Close">
                     &times;
                   </button>
                 </div>
                 <!-- Nội dung của modal -->
-                <ul>
+                <ul v-if="filteredPosts.length">
                   <li v-for="(post, index) in filteredPosts" :key="index" @click="goToPost(post.key)"
                     class="cursor-pointer hover:underline text-blue-600 mt-3">
                     <h3 class="font-bold">{{ post.title }}</h3>
                     <p class="italic">Danh mục: {{ post.category }}</p>
                   </li>
                 </ul>
+                <p v-else class="text-red-500 font-bold py-3">Không có bài viết</p>
               </div>
             </div>
+
+
 
             <!-- Dark Mode Toggle -->
             <div class="relative w-12 h-6 bg-gray-300 rounded-full cursor-pointer flex items-center px-1"

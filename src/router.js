@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import Home from './components/Home.vue';
 import SinglePost from './components/SinglePost.vue';
-import Author from './components/Author.vue';
+// import Author from './components/Author.vue';
 import BlogListing from './components/BlogListing.vue';
 import Login from './components/Login.vue';
 import Register from './components/Register.vue';
@@ -33,12 +33,12 @@ const routes =  [
     component: SinglePost,
     meta: { requiresAuth: true }, // Đánh dấu cần đăng nhập
   },
-  {
-    path: '/Author',
-    name: 'Author',
-    component: Author,
-    meta: { requiresAuth: true }, // Đánh dấu cần đăng nhập
-  },
+  // {
+  //   path: '/Author',
+  //   name: 'Author',
+  //   component: Author,
+  //   meta: { requiresAuth: true }, // Đánh dấu cần đăng nhập
+  // },
   {
     path: '/BlogListing',
     name: 'BlogListing',
