@@ -153,6 +153,7 @@
 <script>
 export default {
     name: 'bloglisting',
+    
 };
 </script>
 
