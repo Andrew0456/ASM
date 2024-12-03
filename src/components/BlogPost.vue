@@ -64,9 +64,9 @@
         </form>   -->
         
         <!-- Back Button -->
-        <router-link 
+        <!-- <router-link 
           to="/home" 
-          class="inline-block px-6 py-3 text-white transition duration-300 bg-gray-500 rounded-lg hover:bg-gray-600"/>
+          class="inline-block px-6 py-3 text-white transition duration-300 bg-gray-500 rounded-lg hover:bg-gray-600"/> -->
 
 
         <!-- Back Button -->
@@ -79,8 +79,8 @@
 
 
         
-        <p class="mb-8 text-3xl font-bold mt-36 text-sky-500">What do you think about this post?</p>
-      <form @submit.prevent="postComment">
+        <p  v-if="isLoggedIn"  class="mb-8 text-3xl font-bold mt-36 text-sky-500">What do you think about this post?</p>
+      <form  v-if="isLoggedIn" @submit.prevent="postComment">
         <div class="mb-3"> <textarea v-model="newComment"
             class="w-full pt-5 pb-5 mb-5 bg-rose-200 rounded-lg shadow-md h-18 ps-10 pe-5 text-slate-950" rows="4"
             placeholder="Write your comment..." required></textarea> </div> <button type="submit"
@@ -117,7 +117,7 @@ export default {
       post: null,
 
       newComment: '',
-      comments: []
+      comments: [],
 
       name: '',  
       email: '',  

@@ -19,7 +19,7 @@ const routes =  [
     path: '/Home',
     name: 'Home',
     component: Home, // Component hiển thị ở trang chủ
-    meta: { requiresAuth: true }, // Đánh dấu cần đăng nhập
+    // meta: { requiresAuth: true }, // Đánh dấu cần đăng nhập
   },
   {
     path: '/Post',
@@ -63,7 +63,7 @@ const routes =  [
     name: 'Blogpost',
     component: BlogPost,
     props: true,
-    meta: { requiresAuth: true }, // Đánh dấu cần đăng nhập
+    //  meta: { requiresAuth: true }, // Đánh dấu cần đăng nhập
   },
   {
     path: '/register',

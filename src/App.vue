@@ -14,7 +14,7 @@ import { RouterView } from 'vue-router';
 
           <!-- Menu -->
           <ul id="cus-top-menu" class="hidden lg:flex lg:items-center lg:gap-9 text-md text-gray-500 font-bold">
-            <li v-if="isLoggedIn" class="cus-top-menu-item">
+            <li class="cus-top-menu-item">
               <router-link to="/Home">Home</router-link>
             </li>
             <li v-if="isLoggedIn" class="cus-top-menu-item">
